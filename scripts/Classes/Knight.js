@@ -10,10 +10,13 @@ class Knight {
     this.visited = [];
   }
 
-  knightMoves = () => {
+  knightMoves() {
     // Define all possible knight moves from a [0, 0] position
     const stepX = [2, 2, -2, -2, 1, 1, -1, -1];
     const stepY = [1, -1, 1, -1, 2, -2, 2, -2];
+
+    // Make sure everything is empty and ready for the BFS
+    this.resetBFS();
 
     // while the queue isn't empty, remove the first position of the queue and assign it to the currentPosition
     while (this.queue.length > 0) {
@@ -42,28 +45,28 @@ class Knight {
     }
 
     return [];
-  };
+  }
 
   // Reset path, queue and visited
-  resetBFS = () => {
+  resetBFS() {
     this.path = [];
     this.queue = [];
     this.queue.push(this.start);
     this.clearVisited();
     this.visited[this.start[0]][this.start[1]] = true;
-  };
+  }
 
   // Clear Visited
-  clearVisited = () => {
+  clearVisited() {
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
         this.visited[i][j] = false;
       }
     }
-  };
+  }
 
   // Reconstruct path
-  recreatePath = (currentPosition) => {
+  recreatePath(currentPosition) {
     // Set path variable to array containing the current position
     const path = [currentPosition];
 
@@ -78,13 +81,15 @@ class Knight {
     }
     // Return the path in reverse to have it start to end
     return path.reverse();
-  };
+  }
+
+  // Check if the next move is illeagal or not
+  isMoveValid(x, y) {
+    return (
+      // If x and y are larger than 0 and smaller than the boardsize AND not in visited, we good
+      x >= 0 && x < boardSize && y >= 0 && y < boardSize && !this.visited[x][y]
+    );
+  }
 }
 
-// Check if the next move is illeagal or not
-isMoveValid = (x, y) => {
-  return (
-    // If x and y are larger than 0 and smaller than the boardsize AND not in visited, we good
-    x >= 0 && x < boardSize && y >= 0 && y < boardSize && !this.visited[x][y]
-  );
-};
+export default Knight;

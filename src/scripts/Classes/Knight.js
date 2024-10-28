@@ -79,12 +79,10 @@ class Knight {
     // Set path variable to array containing the current position
     const path = [currentPosition];
     let [currentX, currentY] = currentPosition;
-
     // While currentPosition of x & y are not equal to the start x & start y
     while (currentX !== this.start[0] || currentY !== this.start[1]) {
       // Set current Position to the previous position to backtrack and push to path
-      const previousPosition =
-        this.visited[currentPosition[0]][currentPosition[1]];
+      const previousPosition = this.visited[currentX][currentY];
       path.push(previousPosition);
       [currentX, currentY] = previousPosition;
     }
